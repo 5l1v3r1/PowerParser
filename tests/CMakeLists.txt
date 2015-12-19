@@ -4,7 +4,7 @@ set(H_SRCS)
 
 set(CXX_SRCS ParserTest.cc)
 
-set(F90_SRCS FParserTest.f90)
+set(F90_SRCS FParserTest.F90)
 
 if (${CMAKE_PROJECT_NAME} MATCHES ${PROJECT_NAME})
    include_directories(${CMAKE_SOURCE_DIR})
