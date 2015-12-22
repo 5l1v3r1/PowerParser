@@ -150,6 +150,14 @@ void FC_FUNC(parser_destroy,PARSER_DESTROY)()
     // entire calculation.
 }
 
+// Destroy the parser comm.
+void FC_FUNC(parser_comm_destroy,PARSER_COMM_DESTROY)()
+{
+#ifdef HAVE_MPI
+    MPI_Finalize();
+#endif
+}
+
 
 //+***************************************************************************
 // ***************************************************************************

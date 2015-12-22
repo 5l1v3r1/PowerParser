@@ -56,6 +56,7 @@ void FC_FUNC(parser_create,PARSER_CREATE)(char *oargs, int *len,
 void FC_FUNC(parser_compile_buffer,PARSER_COMPILE_BUFFER)(int &return_value);
 void FC_FUNC(parser_recreate,PARSER_RECREATE)();
 void FC_FUNC(parser_destroy,PARSER_DESTROY)();
+void FC_FUNC(parser_comm_destroy,PARSER_COMM_DESTROY)();
 
 
 void FC_FUNC(get_logical0,GET_LOGICAL0)(char *cmdname, int *cmdvalue,

@@ -1,0 +1,1005 @@
+//math_result1 = (cos(30))
+//math_result1 = sin((1+2*3-6)*30.*$pi/180.)
+
+some_logical_cmd = false
+
+//$var2d  dimension(3,:)
+//$var2d(3*2-5,1) = 11. 21. 31.   12. 22. 32.   13. 23. 33.
+//var2d_res = ($var2d(3,2) * 10.)
+//var2d_res = $var2d(3,2)
+
+$exearg1 = 3
+put_exe_args_here
+exearg_cmd01 = $exearg1
+
+$rho1 = 1.34
+$temp = 2000.
+
+! We use the internal definition of pi.
+! Uncomment this line to test not allowing redefining of
+! pre-defined variables.
+//$pi = 3.141592653589793238462643383279502884197
+
+math_result1 = (1+2*3)
+
+math_result2 = (1.1 + &
+                2.7*2.0/2)
+
+some_logical_cmd = false
+
+math_result3 = (fmod(15,4)+3)
+math_result8 = (13+(4*(15/3+4)))
+math_result9 = (4. + 4.*(sin(30.*$pi/180.) * cos(60.*$pi/180.)))
+math_result10 = (pow(sin(30.*$pi/180.),2.) + pow(cos(30.*$pi/180.),2.))
+math_result11 = (4**3)
+math_result12 = (sin(30.*$pi/180.)**2 + cos(30.*$pi/180.)**2)
+math_result13 = (5 .eq. 2)
+math_result14 = (.not. false)
+math_result15 = (.not.true)
+math_result16 = (false.and.true)
+
+// Consider the following expression.
+
+math_result17 = (5.gt.4.or.10.gt.20.and.false)
+
+// First this tests the parser's ability to parse relational and logical
+// operators (.gt., .and., etc) as separate words.
+// Second, this demonstrates precedence order of operations.
+// The relational operators (.gt.) are processed first, giving
+//       t .or. f .and. f
+// Then the .and. logical operator is processed giving
+//       t .or. f
+// Finally the .or. logical operator is processed giving the
+// final result of true.
+// If the .or. operator had been processed first, the result would
+// have been false. We can force this by adding additional
+// parentheses
+
+math_result18 = ((5.gt.4.or.10.gt.20).and.false)
+
+// This gives false as a final result.
+
+// This is for testing the mgname_cmd_set_processed subroutine.
+unused_cmd = 1. 3 4 &
+             5. 4 3
+
+################# alsdkjf ###########################
+!!!!!!!!!!!!!!!!!!!! laksjdf !!!!!!!!!!!!!!!!!!!!!!
+///////////////////////// alskdfj //////////////////////
+
+// Test spaces between digits and e, not really legal
+// input. depcmd_dse has values of
+//     fix     Remove the space, merge into one number
+//     ignore  Treat as two numbers
+//     error   Generate fatal error (default)
+depcmd_dse fix
+depcmd01 = 1.0, 3.0 e14, -5.0, 2.0, -5 e15
+
+$r = 1.2    # Set $r, also test's apostrophe in comment.
+$volume = (4*$pi*$r**3/3)   # Calculate volumes
+volume_cmd = $volume    ! test semicolon in comment; lkasdf
+// Another semicolon test; laksdjf
+/* Yet another semicolon test; laksdjf */
+
+//$r(1) = 3.2 2.3 1.5
+//$r2 = 3.1e19
+//ift01 = math($r(3) .eq. 1.5  .or.  $r2.eq.3.1e19)
+
+$var1d(1) = 2. 3.d0 4.
+var1d_res = ($var1d(2) * 10.)
+! varbug_cmd = $var1d(6)    ! Uncomment to get array bounds bug
+
+$var2d  dimension(3,:)
+! $var2d  dimension(4,6,:)   ! uncomment this line to get error.
+$var2d(3*2-5, 3**2-8) = 11. 21. 31.   12. 22. 3.2D1   13. 23. 33.
+! $var2d(1,-1) = 11.
+var2d_res = ($var2d(3,2) * 10.)
+! varbug_cmd = $var2d(3,4)    ! Uncomment to get array bounds bug
+$v8d  dimension(3,2,1,2,2,3,2,:)
+variable_description $v8d "8d int variable array"
+$v8d(1,1,1,1,1,1,1,1) =   &
+    11111111 21111111 31111111  &
+    12111111 22111111 32111111  &
+    11121111 21121111 31121111  &
+    12121111 22121111 32121111  &
+    11112111 21112111 31112111  &
+    12112111 22112111 32112111  &
+    11122111 21122111 31122111  &
+    12122111 22122111 32122111  &
+    11111211 21111211 31111211  &
+    12111211 22111211 32111211  &
+    11121211 21121211 31121211  &
+    12121211 22121211 32121211  &
+    11112211 21112211 31112211  &
+    12112211 22112211 32112211  &
+    11122211 21122211 31122211  &
+    12122211 22122211 32122211  &
+    11111311 21111311 31111311  &
+    12111311 22111311 32111311  &
+    11121311 21121311 31121311  &
+    12121311 22121311 32121311  &
+    11112311 21112311 31112311  &
+    12112311 22112311 32112311  &
+    11122311 21122311 31122311  &
+    12122311 22122311 32122311  &
+    11111121 21111121 31111121  &
+    12111121 22111121 32111121  &
+    11121121 21121121 31121121  &
+    12121121 22121121 32121121  &
+    11112121 21112121 31112121  &
+    12112121 22112121 32112121  &
+    11122121 21122121 31122121  &
+    12122121 22122121 32122121  &
+    11111221 21111221 31111221  &
+    12111221 22111221 32111221  &
+    11121221 21121221 31121221  &
+    12121221 22121221 32121221  &
+    11112221 21112221 31112221  &
+    12112221 22112221 32112221  &
+    11122221 21122221 31122221  &
+    12122221 22122221 32122221  &
+    11111321 21111321 31111321  &
+    12111321 22111321 32111321  &
+    11121321 21121321 31121321  &
+    12121321 22121321 32121321  &
+    11112321 21112321 31112321  &
+    12111121 22111121 32111121  &
+    11121121 21121121 31121121  &
+    12121121 22121121 32121121  &
+    11112121 21112121 31112121  &
+    12112121 22112121 32112121  &
+    11122121 21122121 31122121  &
+    12122121 22122121 32122121  &
+    11111221 21111221 31111221  &
+    12111221 22111221 32111221  &
+    11121221 21121221 31121221  &
+    12121221 22121221 32121221  &
+    11112221 21112221 31112221  &
+    12112221 22112221 32112221  &
+    11122221 21122221 31122221  &
+    12122221 22122221 32122221  &
+    11111321 21111321 31111321  &
+    12111321 22111321 32111321  &
+    11121321 21121321 31121321  &
+    12121321 22121321 32121321  &
+    11112321 21112321 31112321  &
+    12112321 22112321 32112321  &
+    11122321 21122321 31122321  &
+    12122321 22122321 32122321
+
+var8d_cmd = ($v8d(3,2,1,2,1,2,2,1))
+
+var8d_cmd2 = $v8d(3,2,1,2,1,3,2,1)
+
+! This is some comment.
+variable_description $log1d "1d logical variable array"
+$log1d(1) = true false false true true false
+log1d_cmd = (.not.($log1d(5) .and. $log1d(6)))
+
+variable_description $vchar3d "3d character array"
+$vchar3d  dimension(3,2,:)
+$vchar3d(1,1,1) = Turn off your  computer Coker "," use  &
+                  the force
+vchar3d_cmd = ($vchar3d(1,1,2))
+
+$vnc(1) = Turn 1.0e19 true -3
+vnc_cmd = (2*$vnc(2))
+
+
+skip_check_cmd(1) = 1. 2. 3. 4. 5.
+
+// Note that some_logical_cmd appears more than once in this file.
+// The last value is the only one that counts.
+some_logical_cmd = false
+some_logical_cmd = false
+some_logical_cmd = true
+some_logical_cmd = false
+array(1) = 45, 2, /* comment */ 33, 15
+some_logical_cmd = true     //No space between // and No
+
+
+// Test a logical array.
+logical_array(1) = false, true, .true.,
+                   false, true, true
+logical_array(7) = .false., .true., .true., .true.
+
+
+// Handle negative numbers in a command.
+negnum = -5.2
+
+// Test a logical array delimited by spaces.
+$sp2 = true
+$sp5 = true
+$sp7 = .false.
+sp_logical_array(1) = false $sp2 .true. &
+                      false $sp5 true &
+              // Separate continuation lines with a comment.
+                      $sp7 .true. .true. .true.
+! Test multiplicity.
+!mult_logical_array(1) = 3*false 2*$sp2, .true.
+mult_logical_array(1) = 3*false &
+                        2*$sp2, &
+                        .true.
+
+acmd = $rho1  ! comment for // acmd command line
+acmd2 = .1    ! Test starting with a .
+acmd3 = +.1 +3 3*+4    ! Test unary plus
+acmd4 = 1.3E4; acmd5 = e-02 e+1 -e-03 3*E03 d1 D2
+
+// Nested /* ... */ comment on one line.
+p(5) = 2, 4, 9, /* some comment /* nested */ more */ 10, 14, 90
+
+/* This is a
+ * multi-line
+ * comment */  cmdml(2) = 14.6, 17.8, 10.9, 1.e19
+
+! The size function should return 6 for the following skip1d array, i.e.
+! we need to allocate that much memory for the array. Before fixing a
+! bug, the old, erroneous size function would return 4 (just count stuff
+! after the = sign).
+skip1d(1) = 1., 3
+skip1d(5) = 2, 9
+
+// Some more comments.
+// Another comment line.
+xcenter = 1.0
+
+/* Start with comment */acontline(1) = 1.0  45.0 &
+              -15.0  92.0
+
+$a23 = 1.0
+// if ($a23 .eq. 45)
+
+// The following line has one space in it. There was a bug in the code
+// that caused it to die on this line, this bug has been fixed, but we
+// keep this line here for testing.
+
+!*******************************************************************************
+! Both dimensions for a 2d array are unknown.
+!
+! Suppose we have the following input
+!       mults(1,1) = 0. 0.  1. 5.  6. 9.
+!       mults(1,2) = 3. 5.  8. 9.  10. 11. 20. 10
+!       mults(1,3) = 30. 5. 38. 3.
+! In this case we don't know the size of either of the array dimensions, and
+! of course the user does not know the size either and thus cannot somehow
+! merge the above two lines.
+!
+! The mgname_sizeb function is used to get both sizes so that memory allocation
+! can be done. This size function should return 8 for the first dimension and
+! 3 for the second dimension for the example above. The allocation would be
+!       allocate(mults(8,3))
+!
+! We also test duplicate array values here. Uncomment various lines below to
+! test this.
+duplicate_array_values = fatal     ! Either warning or fatal
+mults(1,1) = 0. 0.  1. 5.  6. 9.
+!mults(6,1) = 11. 13.  22.
+!mults(5,1) = 33.
+!mults(3,1) = 1. 5.  &
+!             6. 9.
+mults(1,2) = 3. 5.  8. 9.  10. 11. 20. 10
+mults(1,3) = 30. 5. 38. 3.
+
+!*******************************************************************************
+! Unary plus and minus
+math_result4 = (-5)
+math_result5 = (4--5)     !Test no space between ! and Test
+math_result5B = (4++5)
+math_result6 = ((4*-5))
+math_result7 = (3+(4*-5))
+$vupm01 = 15
+$vupm02 = 7
+upm01 = ($vupm01 + -$vupm02)
+upm02 = ($vupm01 - +$vupm02)
+
+
+!*******************************************************************************
+! Assumed starting dimension checks.
+! We normally have
+!     asm1d(1) = 4. -7. 1.e19
+! But we also allow
+!     asm1d = 4. -7. 1.e19
+! and we supply the (1). Check that this actually works.
+asm1d = 4. -7. 1.e19
+asm2d = 4. -7. 1.e19  -3. 1.9 -2.3e-17
+
+
+!*******************************************************************************
+! Integer Arithmetic
+iarith_cmd01 = (fmod(15,4))
+iarith_cmd02 = (floor(15/4))
+iarith_cmd03 = (ceil(15/4))
+
+!*******************************************************************************
+! ++ and -- operators
+$ppmm_v1 = 5
+ppmm_cmd01 = ($ppmm_v1++)    ! Should be 5
+ppmm_cmd02 = ($ppmm_v1)      ! Should be 6
+ppmm_cmd03 = ($ppmm_v1--)    ! Should be 6
+ppmm_cmd04 = ($ppmm_v1)      ! Should be 5
+
+ppmm_cmd05 = ($ppmm_v1++ + $ppmm_v1)      ! Should be 11
+
+$ppmm_v2(1) = 7 19 11
+ppmm_cmd06 = ($ppmm_v2(2)++)    ! Should be 19
+ppmm_cmd07 = ($ppmm_v2(2))      ! Should be 20
+
+// ppmm_cmd08 = (2++)          ! Should fail.
+// ppmm_cmd08 = ($ppmm_v1)++   ! Should fail.
+
+ppmm_cmd08 = $ppmm_v1++      ! Should be 6
+ppmm_cmd09 = $ppmm_v1        ! Should be 7
+ppmm_cmd10 = $ppmm_v2(2)--   ! Should be 20
+ppmm_cmd11 = $ppmm_v2(2)     ! Should be 19
+
+$ppmm_v1 = 17.356
+ppmm_cmd12 = $ppmm_v1++      ! Should be 17.356
+ppmm_cmd13 = $ppmm_v1        ! Should be 18.356
+
+// Kind of odd, but logical. We have the following sequence:
+// $ppmm_v1 = ($ppmm_v1++)      $ppmm_v1 is 5
+// $ppmm_v1 = (5++)             The var gets replaced by 5
+// $ppmm_v1 = (5)               ++ is done, $ppmm_v1 is now 6
+// $ppmm_v1 = 5                 The assignment is done, $ppmm_v1 is 5 again
+// So $ppmm_v1 ends up unchanged.
+$ppmm_v1 = 5
+$ppmm_v1 = ($ppmm_v1++)
+ppmm_cmd14 = $ppmm_v1        ! Should be 5
+
+$ppmm_v2d  dimension(3,:)
+$ppmm_v2d(1,1) = 11. 21. 31.   12. 22. 32.   13. 23. 33.
+ppmm_cmd15 = ($ppmm_v2d(3,2)++*-10)   ! Should be -320
+ppmm_cmd16 = $ppmm_v2d(3,2)           ! Should be 33
+
+!*******************************************************************************
+! Intrinsic Functions
+f01 = (exp(log(exp(log(4.58)))))
+f02 = (acos(0.5)*180./$pi)
+
+$idefvar = 1.0
+idefvar_cmd01 = false
+if (defined("$idefvar")) idefvar_cmd01 = true
+idefvar_cmd02 = true
+if (defined("$idefvar02")) idefvar_cmd02 = false
+idefvar_cmd03 = 1.04
+if (.not. defined("$idefvar02")) idefvar_cmd03 = 2.35
+if (.not. defined("$idefvar03")) then
+    $idefvar03 = false
+endif
+idefvar_cmd04 = -3.45
+if (defined("$idefvar03")) idefvar_cmd04 = 19.2
+
+
+!*******************************************************************************
+! 2D arrays
+a2d(1,1) = 3.0 4.5 -3 4e19 -3e-23 $a23
+
+i2d(1,1) = 3 4 -3
+! i2d(2,1) = 5 15       ! Uncomment for duplicate array value check.
+i2d(1,2) = 5  2*-7
+
+log2d(1,1) = true
+log2d(2,1) = trUe
+! log2d(2,1) = true     ! Uncomment for duplicate array value check.
+log2d(3,1) = False
+log2d(1,2) = true .false. FaLSe
+
+!*******************************************************************************
+! 3D arrays
+a3d(1,1,1) = 3.0 4.5 -3    4e19 -3e-23 $a23   &
+             3.1 4.6 -4    5e19 -2e-23 1.4    &
+             3.2 4.7 -5    6e19 -1e-23 2.6
+
+i3d(1,1,2) = 3  4   -4           5        -2 -4.0    &
+             3. 7 -543    62145679 -19284213    2
+
+! 3x2x3
+! 1 1 1
+! 2 2 1
+! 3 1 1
+! 1 2 1
+! 2 1 1
+! 3 2 1
+! 1 1 2
+! 2 2 2
+! 3 1 2
+! 1 2 2
+! 2 1 2
+! 3 2 2
+! 1 1 3
+! 2 2 3
+! 3 1 3
+! 1 2 3
+! 2 1 3
+! 3 2 3
+log3d(1,1,1) = true false false false true
+log3d(3,2,1) = false true false false
+log3d(1,2,2) = false true false true &
+               true true false false true
+
+!*******************************************************************************
+! 4D arrays
+! 1  1  1  1
+! 2  1  1  1
+! 1  1  2  1
+! 2  1  2  1
+! 1  1  1  2
+! 2  1  1  2
+! 1  1  2  2
+! 2  1  2  2
+a4d(1,1,1,1) = 3.0  4.5 3.1 4.6
+a4d(1,1,1,2) = -3.4 4.7 5.2 4.6e19
+
+
+! 1  1  1  1
+! 2  1  1  1
+! 1  1  2  1
+! 2  1  2  1
+! 1  1  3  1
+! 2  1  3  1
+! 1  1  1  2
+! 2  1  1  2
+! 1  1  2  2
+! 2  1  2  2
+! 1  1  3  2
+! 2  1  3  2
+i4d(1,1,1,1) = 3.0  4  -14   49
+i4d(1,1,3,1) = 19  42
+i4d(1,1,1,2) = -3  542  -165  555
+i4d(1,1,3,2) = 199  942
+
+! 2x1x3x2
+log4d(1,1,1,1) = true true false false true true true
+
+!*******************************************************************************
+! Character input
+single_char = z
+
+single_charq = "r"
+
+title = 'Whatever the Title is.'
+
+char1d(1) = "May", "the" "force"
+char1d(6) = 'you'
+! char1d(6) = 'youlaksjdf'    ! Uncomment for duplicate array value checking.
+char1d(4) = "be" "with"
+
+oddstrs(1) = "123456789012345678901234567890" "" 15 14.35e19 &
+    "1234567890123456789012345678901234567890123456789012345678901234567890" &
+    (3*2-1), "a,b"
+
+char2d(1,1) = "May", "the" "force" "be" "with" "you"
+
+c1d_mult(1) = "May", 3*"the" "force"
+
+! 2x2x2
+char3d(1,1,1) = a b c d e f g h
+
+! 2x2x2x2
+char4d(1,1,1,1) = a b c d e f g h  i j k l m n o p
+
+strinsert_cmd01 = "test duplicates commands"
+
+strlen_cmd01 = (strlen("I felt a great disturbance in the Force"))
+$strlen_var = 1.0e14
+strlen_cmd02 = (strlen($strlen_var))
+
+strcat_cmd01 = (strcat(strcat("Obi", "-Wan"), " Kenobi"))
+
+$strcat_var = "Obi"
+do $i = 1,3
+    $strcat_var = (strcat($strcat_var, $i))
+enddo
+strcat_cmd02 = $strcat_var
+
+strinsert_cmd01 = "test duplicates commands"
+
+strerase_cmd01 = (strerase("The Force", 1, 4))
+$strerase_var02 = 1.3e14
+strerase_cmd02 = (strerase($strerase_var02, 3, 3))
+
+strinsert_cmd01 = (strinsert(strinsert("The", 1, "Use "), &
+                   8, " Force"))
+
+strsubstr_cmd01 = (strsubstr("Use The Force", 5, 3))
+
+strtrim_cmd01 = (strcat(strtrim("Use The Force     "), &
+                 ", Scott"))
+
+!*******************************************************************************
+!*******************************************************************************
+! restart_block tests
+restart_block block_name1 (rbtime .gt. 5.0) then
+    rbcmd01 = 10
+end_restart_block
+
+restart_block block_name2 (rbwhatever .gt. 15.e3) then
+    rbcmd02 = true
+end_restart_block
+
+
+!*******************************************************************************
+!*******************************************************************************
+! when ... then tests
+when (time .gt. 5.0) then
+    shortmodcyc = 8
+    shortmodcyc = 5
+endwhen
+
+when (ncycle .gt. 10) modcyc = 5
+
+when (wttf_c01 .eq. TruE) then
+    wt_cmd01 = true
+    wt_cmd02 = 5.0
+endwhen
+
+when (wttf_c02 .eq. "The Force") then
+    wt_cmd03 = true
+    wt_cmd04 = 6
+endwhen
+
+when (time .gt. 6.3 .and. ncycle .gt. 20) then
+    wt_cmd05 = 322
+endwhen
+
+when (sim_pressure .hggt. 1.0 .and. sim_pressure .lt. 1.0) then
+    wt_cmd06 = -400
+endwhen
+
+
+// C++ when...then checks
+when (time .gt. 60.0) then
+    shortmodcyc = 5
+endwhen
+
+when (ncycle .ge. 100) modcyc = 50
+
+when (wttf_c01 .eq. FALSE) then
+    wt_cmd01 = true
+    wt_cmd01 = true
+    wt_cmd02 = 8.
+    wt_cmd02 = 9.
+    wt_cmd01 = true
+    wt_cmd01 = true
+    wt_cmd01 = false
+    wt_cmd02 = 10.2
+endwhen
+
+when (wttf_c02 .eq. "Use The Force") then
+    wt_cmd03 = false
+    wt_cmd04 = -19
+endwhen
+
+when (time .gt. 60.3 .and. ncycle .gt. 99) then
+    wt_cmd05 = 322
+endwhen
+
+!*******************************************************************************
+! If statements
+$dimension = 2
+if ($dimension .eq. 2) delta_y_cmd01 = 1.0
+if ($dimension .eq. 1) delta_y_cmd01 = 2.0
+
+$delta_y = 1.0
+$dimension = 2
+if ($dimension .eq. 1) $delta_y = 5.0
+delta_y_cmd02 = $delta_y
+if ($dimension .eq. 2) $delta_y = 3.0
+delta_y_cmd03 = $delta_y
+
+$dimension = 2
+$ifarray(1) = 4*0
+if ($dimension .eq. 2) $ifarray(1) = 1, 2, 3, 4
+delta_y_cmd04 = $ifarray(3)
+
+
+// The following is illegal, only single line if statements
+// and block if statements are allowed.
+//$dimension = 2
+//if ($dimension .eq. 2) delta_y_cmd2 = 1.0
+//else                   delta_y_cmd2 = 2.0
+
+$dimension = 2
+if ($dimension .eq. 2) then
+    $delta_y = 0.1
+endif
+delta_y_cmd05 = $delta_y
+
+$dimension = 2
+$multid = true
+if ($multid) then
+    if ($dimension .eq. 2) then
+        $delta_y = 0.2
+    endif
+endif
+delta_y_cmd06 = $delta_y
+
+$dimension = 2
+if ($dimension .eq. 1) then
+    $delta_y = 0.13
+else
+    $delta_y = 0.26
+endif
+delta_y_cmd07 = $delta_y
+
+
+$dimension = 2
+$problem_name = "test01"
+if ($problem_name .eq. "test01") then
+    if ($dimension .eq. 1) then
+        $delta_x = 0.23
+    else if ($dimension .eq. 2) then
+        $delta_x = 1.48
+    elseif ($dimension .eq. 3) then
+        $delta_x = 2.56
+    else if ($dimension .eq. 4) then
+        $delta_x = 5.6
+    else
+        $delta_x = 9.1
+    endif
+end if
+delta_x_cmd01 = $delta_x
+
+$dimension = 3
+$problem_name = "test01"
+$run_number = 12
+$popt01 = "opt01"
+if ($problem_name .eq. "test01") then
+    if ($run_number .eq. 12) then
+        if ($dimension .eq. 1) then
+            $delta_x = 0.23
+        else if ($dimension .eq. 2) then
+            $delta_x = 1.48
+        elseif ($dimension .eq. 3) then
+            if ($popt01 .eq. "opt03") then
+                $delta_x = 2.96
+            elseif ($popt01 .eq. "opt02") then
+                $delta_x = 21.96
+            else
+                $delta_x = 43.56
+            endif
+        elseif ($dimension .eq. 4) then
+            $delta_x = 5.6
+        else
+            $delta_x = 9.1
+        endif
+    end if
+end if
+delta_x_cmd02 = $delta_x
+
+$dimension = 3
+$problem_name = "test01"
+$run_number = 11
+$popt01 = "opt01"
+if ($problem_name .eq. "test01") then
+    if ($run_number .eq. 12) then
+        if ($dimension .eq. 1) then
+            $delta_x = 0.23
+        else if ($dimension .eq. 2) then
+            $delta_x = 1.48
+        elseif ($dimension .eq. 3) then
+            if ($popt01 .eq. "opt03") then
+                $delta_x = 2.96
+            elseif ($popt01 .eq. "opt02") then
+                $delta_x = 21.96
+            else
+                $delta_x = 43.56
+            endif
+        elseif ($dimension .eq. 4) then
+            $delta_x = 5.6
+        else
+            $delta_x = 9.1
+        endif
+    end if
+    $delta_x = -3.4
+end if
+delta_x_cmd03 = $delta_x
+
+!*******************************************************************************
+! Do Loops
+
+// Simple loop
+$istart = 1
+$iend = 10
+$sum = 0
+do $i=$istart,$iend
+    $sum = ($sum + 1)
+enddo
+do_sum_cmd01 = $sum
+
+// Nested loop
+$sum = 0
+$istart_array(1) = 3, 2, 1, 4
+do $i=$istart_array(3),10
+    do $j=1,10
+        do $k=1,10
+            $sum = ($sum + 1)
+         enddo
+    enddo
+enddo
+do_sum_cmd02 = $sum
+
+// Exit
+$sum = 0
+do $i=1,10
+    do $j=1,10
+        do $k=1,10
+            if ($k .eq. 3) exit
+            $sum = ($sum + 1)
+        enddo
+    enddo
+enddo
+do_sum_cmd03 = $sum
+
+// Cycle
+$sum = 0
+do $i=1,10, (sqrt(3**2 + 4**2) - 4)
+    do $j=1,10
+        do $k=1,10
+            if ($k .eq. 3) cycle
+            $sum = ($sum + 1)
+        enddo
+    enddo
+enddo
+do_sum_cmd04 = $sum
+
+// Math evaluation
+$sum = 0
+do $i = (sin(0.3)**2+cos(0.3)**2), (8/4*3+13)
+    $sum = ($sum + $i)
+enddo
+do_sum_cmd05 = $sum
+
+// Step, $sum = 5*4*2 = 40
+$sum = 0
+do $i=1,10,2
+    do $j=1,10,3
+        do $k=1,10,4
+            if ($k .eq. 5) cycle
+            $sum = ($sum + 1)
+        enddo
+    enddo
+enddo
+do_sum_cmd06 = $sum
+
+// Test negative loop limits.
+$sum = 0
+$do_stop = 3
+do $i=3,-$do_stop,-1
+    $sum = ($sum + 1)
+enddo
+do_sum_cmd07 = $sum
+
+!*******************************************************************************
+! Check the stop command by uncommenting the following.
+/*
+$sum = 0
+$stopif01 = true
+do $i=1,10,2
+    do $j=1,10,3
+        if ($stopif01 .eq. true) then
+            do $k=1,10,4
+                if ($k .eq. 5) stop
+                $sum = ($sum + 1)
+            enddo
+        endif
+    enddo
+enddo
+*/
+
+
+!*******************************************************************************
+! Include file tests.
+!include "fparse_test_inc1.in"
+inc_cmd01 = $tinc01
+
+!include whatever_file "another_file" "fparse_test_inc2.in"
+inc_cmd02 = $tinc02
+inc_cmd03 = $tinc03
+inc_cmd04 = $tinc04
+
+!*******************************************************************************
+! Subroutines.
+
+!===============================================================================
+! A very simple subroutine with no arguments.
+!===============================================================================
+subroutine test1
+    $test1_var = 3
+end subroutine
+
+
+!===============================================================================
+! Subroutines with no arguments to test subroutines calling each other.
+! Note that test3 and test4 are "out of order", this is ok.
+!===============================================================================
+subroutine test2
+    $test2_var = 3
+    call test3
+end subroutine
+
+subroutine test4
+    $test2_var = 9
+end subroutine
+
+subroutine test3
+    $test2_var = 6
+    call test4
+end subroutine
+
+
+!===============================================================================
+! Subroutine with arguments.
+!===============================================================================
+subroutine twa1($arg1, $arg2, $arg3, $arg4)
+    $twa1_var1 = $arg1
+    $twa1_var2 = $arg2
+    $arg1 = 52
+    //$arg2 = 52   // Uncomment to test error of changing
+                   // a fixed argument.
+    $arg3(2) = 16
+    $arg3(3) = 7
+    $twa1_var4 = $arg4
+end subroutine
+
+
+!===============================================================================
+! Test simple return in subroutine.
+!===============================================================================
+subroutine twret1($arg1, $arg2)
+    $arg1 = 52
+    return
+    $arg2 = 16
+end subroutine
+
+
+!===============================================================================
+! Test return embedded in do loop.
+!===============================================================================
+subroutine twret2($arg1)
+    $arg1 = 0
+    $retif01 = true
+    do $i=1,10,2
+        do $j=1,10,3
+            if ($retif01 .eq. true) then
+                do $k=1,10,4
+                    if ($j .eq. 7) return
+                    $arg1 = ($arg1 + 1)
+                enddo
+            endif
+        enddo
+    enddo
+end subroutine
+
+
+
+!*******************************************************************************
+! Subroutine call tests.
+
+// Basic test.
+call test1
+sub_cmd01 = $test1_var
+
+// Test nesting.
+call test2
+sub_cmd02 = $test2_var
+
+// Test subroutine arguments.
+$targ1 = 3
+$targ1_arr1d(1) = 4*300
+call twa1($targ1, (4*(sin(0.5)**2 + cos(0.5)**2)), $targ1_arr1d, &
+          $targ1_arr1d(3))
+sub_cmd03 = $twa1_var1
+sub_cmd04 = $twa1_var2
+sub_cmd05 = $targ1
+sub_cmd06(1) = $targ1_arr1d(1) $targ1_arr1d(2) &
+               $targ1_arr1d(3) $targ1_arr1d(4)
+sub_cmd07 = $twa1_var4
+
+// Test a simple return.
+$targ1 = 3
+$targ2 = 3
+call twret1($targ1, $targ2)
+sub_cmd08 = $targ1
+sub_cmd09 = $targ2
+
+// Test return embedded in do loops.
+$targ1 = 0
+call twret2($targ1)
+sub_cmd10 = $targ1
+
+!*******************************************************************************
+!*******************************************************************************
+! Quadratic Equation
+
+!===============================================================================
+! Subroutine to solve the quadratic equation.
+!===============================================================================
+subroutine quad_eq($a, $b, $c, $root1, $root2)
+    $root1 = 0.
+    $root2 = 0.
+    $rarg = ($b**2 - 4*$a*$c)
+    if ($rarg .lt. 0.) then
+        fatal_error sub quad_eq, sqrt argument < 0.
+    endif
+    $num = (-$b + sqrt($rarg))
+    $dem = (2 * $a)
+    if ($dem .eq. 0.) then
+        fatal_error sub quad_eq, denominator (2a) = 0.
+    endif
+    $root1 = ($num / $dem)
+    $num = (-$b - sqrt($rarg))
+    $root2 = ($num / $dem)
+end subroutine
+
+$x1 = 0
+$x2 = 0
+call quad_eq(2, 4, -30, $x1, $x2)
+//call quad_eq(0, 4, (-30), $x1, $x2)
+//call quad_eq(2, 4, 30, $x1, $x2)   ! Uncomment for sqrt(negative num) error.
+quad_root1 = $x1
+quad_root2 = $x2
+
+!*******************************************************************************
+! Example 2 in the manual.
+    ! MATERIALS
+    $m = 1
+    $al_can = $m
+    matdef(16,$m) = 0.40
+    matdef(30,$m) = 1.0e13
+
+    $m = ($m + 1)
+    $cu_sphere = $m
+    matdef(16,$m) = 0.67
+    matdef(30,$m) = 1.0e13
+
+    $m = ($m + 1)
+    $neon_tube = $m
+    matdef(16,$m) = 0.40
+    matdef(30,$m) = 3.0e13
+    nummat = $m
+
+    ! REGIONS
+    $r = 1
+    matreg($r) = $al_can
+
+    $r = ($r + 1)
+    matreg($r) = $cu_sphere
+
+    $r = ($r + 1)
+    matreg($r) = $neon_tube
+
+    numreg = $r
+
+
+!*******************************************************************************
+! Example 3 in the manual.
+    ! MATERIALS
+    $m = 1
+    $al_can = $m;    $gm1($m) = 0.40; $cv($m++) = 1.0e13
+    $cu_sphere = $m; $gm1($m) = 0.67; $cv($m++) = 1.0e13
+    $neon_tube = $m; $gm1($m) = 0.40; $cv($m)   = 3.0e13
+
+    do $i = 1, $m
+        matdef(17,$i) = $gm1($i)
+        matdef(31,$i) = $cv($i)
+    enddo
+
+    $r = 1
+    matreg2($r++) = $al_can
+    matreg2($r++) = $cu_sphere
+    matreg2($r)   = $neon_tube
+    numreg2 = $r
+
+
+!*******************************************************************************
+//parser_list_variables $targ1
+//parser_list_variables $tinc01
+
+parser_redirect_to_file parser.out
+
+parser_list_variables
+parser_list_functions
+parser_print_fbuffer
+
