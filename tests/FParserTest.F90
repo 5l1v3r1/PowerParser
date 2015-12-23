@@ -197,7 +197,7 @@ program FParserTest
 
    ! Check for duplicate scalar values.
    ! Echo the input file, vars, functions, final buffer.
-   !call parser_chk_scalar_dup
+   call parser_chk_scalar_dup
    call FParser_echo_user_input(12)
    !call FParser_echo_fvf(12)
 
@@ -1187,15 +1187,14 @@ program FParserTest
 
     call assertEqual(-400, wt_cmd06, trim(Package)//trim(Module)//" when...then, wt_cmd06")
 
-#ifdef XXX
     max_casize = 0
     do i = 1, wtnum
        call FParser_whenthen_casize(i, wt_casize)
-       !print *, wt_casize
+       ! print *, wt_casize
        if (wt_casize .gt. max_casize) max_casize = wt_casize
     enddo
     call assertEqual(66, max_casize, trim(Package)//trim(Module)//" when...then, max_casize")
-    !print *, max_casize
+    ! print *, max_casize
 
     allocate(wt_ca(max_casize))
 
@@ -1237,7 +1236,6 @@ program FParserTest
 
        deallocate(wt_sat)
     endif
-#endif
 
     ! ---------------------------------------------------------------------------
     ! ---------------------------------------------------------------------------
