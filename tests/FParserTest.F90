@@ -1191,11 +1191,11 @@ program FParserTest
     max_casize = 0
     do i = 1, wtnum
        call FParser_whenthen_casize(i, wt_casize)
-       print *, wt_casize
+       !print *, wt_casize
        if (wt_casize .gt. max_casize) max_casize = wt_casize
     enddo
     call assertEqual(66, max_casize, trim(Package)//trim(Module)//" when...then, max_casize")
-    print *, max_casize
+    !print *, max_casize
 
     allocate(wt_ca(max_casize))
 
@@ -1332,7 +1332,6 @@ program FParserTest
     call QueryFParser('inc_cmd04', inc_cmd04, .true.)
     call assertEqual(-19.0_REAL64, inc_cmd04, trim(Package)//trim(Module)//" nested include, inc_cmd04")
 
-#ifdef XXX
     ! ---------------------------------------------------------------------------
     ! ---------------------------------------------------------------------------
     ! Subroutine tests
@@ -1437,7 +1436,6 @@ program FParserTest
     quad_root2 = 0
     call QueryFParser('quad_root2', quad_root2, .true.)
     call assertEqual(-5, quad_root2, trim(Package)//trim(Module)//" Quadratic eqn, root2")
-#endif
 
    ! ******************************************************************************
    ! ******************************************************************************
