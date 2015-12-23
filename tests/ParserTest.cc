@@ -3,6 +3,7 @@
 #include "genmalloc/genmalloc.h"
 #endif
 #include "PowerParser.hh"
+#include "assertStuff.hh"
 
 using namespace PP;
 
@@ -15,6 +16,8 @@ int main(int argc, char **argv)
    int mype = parse->comm->getProcRank();
    int npes = parse->comm->getNumProcs();
 
+   Assert *assert = new Assert();
+
    if (mype == 0) printf("\n\t\tRunning the Parser read tests\n\n");
 
    // Process input file
@@ -26,110 +29,50 @@ int main(int argc, char **argv)
 
    vector<string> sinput(1);
    parse->get_char("string_input", sinput);
-
-   if(sinput[0].compare("parsetest") == 0 ){
-      if (mype == 0) printf("  PASSED: Read string %s\n",sinput[0].c_str() );
-   } else {
-      if (mype == 0) printf("  FAILED: Read string %s should be %s\n",sinput[0].c_str(), "parsetest");
-   }
+   assert->Equal("parsetest", sinput[0], "Read string");
 
    int intvalue = -1;
    parse->get_int("int_input", &intvalue);
-
-   if (intvalue == 10){
-      if (mype == 0) printf("  PASSED: Read int %d\n",intvalue);
-   } else {
-      if (mype == 0) printf("  FAILED: Read int %d should be %d\n",intvalue, 10);
-   }
+   assert->Equal(10, intvalue, "Read int");
    
    double doublevalue = -1;
    parse->get_real("double_input", &doublevalue);
-
-   if (doublevalue == 5.5){
-      if (mype == 0) printf("  PASSED: Read real %lf\n",doublevalue);
-   } else {
-      if (mype == 0) printf("  FAILED: Read real %lf should be %lf\n",doublevalue, 5.5);
-   }
+   assert->Equal(5.5, doublevalue, "Read real");
 
    doublevalue = -1;
    parse->get_real("dx", &doublevalue);
-
-   if (doublevalue == 1.0){
-      if (mype == 0) printf("  PASSED: Read real %lf\n",doublevalue);
-   } else {
-      if (mype == 0) printf("  FAILED: Read real %lf should be %lf\n",doublevalue, 1.0);
-   }
+   assert->Equal(1.0, doublevalue, "Read real");
 
    doublevalue = -1;
    parse->get_real("xreal", &doublevalue);
-
-   if (doublevalue == 1.0){
-      if (mype == 0) printf("  PASSED: Read real %lf\n",doublevalue);
-   } else {
-      if (mype == 0) printf("  FAILED: Read real %lf should be %lf\n",doublevalue, 1.0);
-   }
+   assert->Equal(1.0, doublevalue, "Read real");
 
    intvalue = -1;
    parse->get_int("ivalue", &intvalue);
-
-   if (intvalue == 100){
-      if (mype == 0) printf("  PASSED: Read int %d\n",intvalue);
-   } else {
-      if (mype == 0) printf("  FAILED: Read int %d should be %d\n",intvalue, 100);
-   }
+   assert->Equal(100, intvalue, "Read int");
    
    parse->get_char("string", sinput);
-
-   if(sinput[0].compare("malarky") == 0 ){
-      if (mype == 0) printf("  PASSED: Read string %s\n",sinput[0].c_str() );
-   } else {
-      if (mype == 0) printf("  FAILED: Read string %s should be %s\n",sinput[0].c_str(), "malarky");
-   }
+   assert->Equal("malarky", sinput[0], "Read string");
 
    bool boolvalue = false;
    parse->get_bool("doThing", &boolvalue);
-
-   if (boolvalue == true){
-      if (mype == 0) printf("  PASSED: Read boolean %s\n",boolvalue ? "true" : "false");
-   } else {
-      if (mype == 0) printf("  FAILED: Read bool %s should be %s\n",boolvalue ? "true" : "false", "true");
-   }
+   assert->Equal(true, boolvalue, "Read boolean");
 
    boolvalue = false;
    parse->get_bool("doThing1", &boolvalue);
+   assert->Equal(true, boolvalue, "Read boolean");
 
-   if (boolvalue == true){
-      if (mype == 0) printf("  PASSED: Read boolean %s\n",boolvalue ? "true" : "false");
-   } else {
-      if (mype == 0) printf("  FAILED: Read bool %s should be %s\n",boolvalue ? "true" : "false", "true");
-   }
-   
    boolvalue = false;
    parse->get_bool("doThing2", &boolvalue);
+   assert->Equal(true, boolvalue, "Read boolean");
 
-   if (boolvalue == true){
-      if (mype == 0) printf("  PASSED: Read boolean %s\n",boolvalue ? "true" : "false");
-   } else {
-      if (mype == 0) printf("  FAILED: Read bool %s should be %s\n",boolvalue ? "true" : "false", "true");
-   }
-   
    boolvalue = true;
    parse->get_bool("doThing3", &boolvalue);
+   assert->Equal(false, boolvalue, "Read boolean");
 
-   if (boolvalue == false){
-      if (mype == 0) printf("  PASSED: Read boolean %s\n",boolvalue ? "true" : "false");
-   } else {
-      if (mype == 0) printf("  FAILED: Read bool %s should be %s\n",boolvalue ? "true" : "false", "false");
-   }
-   
    boolvalue = true;
    parse->get_bool("doThing4", &boolvalue);
-
-   if (boolvalue == false){
-      if (mype == 0) printf("  PASSED: Read boolean %s\n",boolvalue ? "true" : "false");
-   } else {
-      if (mype == 0) printf("  FAILED: Read bool %s should be %s\n",boolvalue ? "true" : "false", "false");
-   }
+   assert->Equal(false, boolvalue, "Read boolean");
 
    //**************************************
    // Start of array tests
@@ -151,7 +94,7 @@ int main(int argc, char **argv)
 
    if (! iflag){
       if (mype == 0) {
-         printf("  PASSED: Read real[0] %lg real[1] %lg real[2] %lg real[3] %lg real[4] %lg real[5] %lg\n",
+         printf("PASSED: Read real[0] %lg real[1] %lg real[2] %lg real[3] %lg real[4] %lg real[5] %lg\n",
                 doublearray[0], doublearray[1], doublearray[2], doublearray[3], doublearray[4], doublearray[5]);
       }
    } else {
@@ -174,7 +117,7 @@ int main(int argc, char **argv)
 
    if (! iflag){
       if (mype == 0) {
-         printf("  PASSED: Read real[0] %lg real[1] %lg real[2] %lg real[3] %lg real[4] %lg real[5] %lg\n",
+         printf("PASSED: Read real[0] %lg real[1] %lg real[2] %lg real[3] %lg real[4] %lg real[5] %lg\n",
                 doublearray[0], doublearray[1], doublearray[2], doublearray[3], doublearray[4], doublearray[5]);
       }
    } else {
@@ -197,7 +140,7 @@ int main(int argc, char **argv)
 
    if (! iflag){
       if (mype == 0) {
-         printf("  PASSED: Read real[0] %lg real[1] %lg real[2] %lg real[3] %lg real[4] %lg real[5] %lg\n",
+         printf("PASSED: Read real[0] %lg real[1] %lg real[2] %lg real[3] %lg real[4] %lg real[5] %lg\n",
                 doublearray[0], doublearray[1], doublearray[2], doublearray[3], doublearray[4], doublearray[5]);
       }
    } else {
@@ -220,7 +163,7 @@ int main(int argc, char **argv)
 
    if (! iflag){
       if (mype == 0) {
-         printf("  PASSED: Read real[0] %lg real[1] %lg real[2] %lg real[3] %lg real[4] %lg real[5] %lg\n",
+         printf("PASSED: Read real[0] %lg real[1] %lg real[2] %lg real[3] %lg real[4] %lg real[5] %lg\n",
                 doublearray[0], doublearray[1], doublearray[2], doublearray[3], doublearray[4], doublearray[5]);
       }
    } else {
@@ -256,7 +199,7 @@ int main(int argc, char **argv)
    }
 
    if (! iflag){
-      printf("  PASSED: Read real[0][0] %lg real[0][1] %lg real[0][2] %lg real[1][0] %lg real[1][1] %lg real[1][2] %lg\n",
+      printf("PASSED: Read real[0][0] %lg real[0][1] %lg real[0][2] %lg real[1][0] %lg real[1][1] %lg real[1][2] %lg\n",
              doublearray2d[0][0], doublearray2d[0][1], doublearray2d[0][2],
              doublearray2d[1][0], doublearray2d[1][1], doublearray2d[1][2]);
    } else {
@@ -294,7 +237,7 @@ int main(int argc, char **argv)
    }
 
    if (! iflag){
-      printf("  PASSED: Read real[0][0] %lg real[0][1] %lg real[1][0] %lg real[1][1] %lg real[2][0] %lg real[2][1] %lg\n",
+      printf("PASSED: Read real[0][0] %lg real[0][1] %lg real[1][0] %lg real[1][1] %lg real[2][0] %lg real[2][1] %lg\n",
              doublearray2d[0][0], doublearray2d[0][1],
              doublearray2d[1][0], doublearray2d[1][1],
              doublearray2d[2][0], doublearray2d[2][1]);
@@ -318,5 +261,4 @@ int main(int argc, char **argv)
    if (mype == 0) printf("\n\t\tFinished the Parser read tests\n\n");
    
 }
-
 
