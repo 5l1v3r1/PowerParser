@@ -1,0 +1,8 @@
+$tinc01 = 3.0
+some_logical_cmd = .true.
+
+! Uncomment the following to test error messages from cannds in include
+! files for the input of duplicate values. Note that duplicate value
+! input may have to also be commented out in fparse_test.in to get this error.
+! mults(7,2) = 200. 100
+

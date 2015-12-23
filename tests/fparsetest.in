@@ -791,10 +791,10 @@ enddo
 
 !*******************************************************************************
 ! Include file tests.
-!include "fparse_test_inc1.in"
+include "fparse_test_inc1.in"
 inc_cmd01 = $tinc01
 
-!include whatever_file "another_file" "fparse_test_inc2.in"
+include whatever_file "another_file" "fparse_test_inc2.in"
 inc_cmd02 = $tinc02
 inc_cmd03 = $tinc03
 inc_cmd04 = $tinc04

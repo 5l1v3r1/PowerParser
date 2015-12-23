@@ -56,9 +56,9 @@ subroutine assertTrue(l, string)
    call parser_comm_info(mype, numpe, iope)
 
    if (l .eqv. .true.) then
-      if (mype .eq. 0) print *,"PASSED: ",string
+      if (mype .eq. 0) write (*,'("PASSED: ",a)') trim(string)
    else
-      if (mype .eq. 0) print *,"  FAILED: ",string
+      if (mype .eq. 0) write (*,'("  FAILED: ",a)') trim(string)
    endif
 end subroutine assertTrue
 
@@ -71,9 +71,9 @@ subroutine assertFalse(l, string)
    call parser_comm_info(mype, numpe, iope)
 
    if (l .eqv. .false.) then
-      if (mype .eq. 0) print *,"PASSED: ",string
+      if (mype .eq. 0) write (*,'("PASSED: ",a)') trim(string)
    else
-      if (mype .eq. 0) print *,"  FAILED: ",string
+      if (mype .eq. 0) write (*,'("  FAILED: ",a)') trim(string)
    endif
 end subroutine assertFalse
 
@@ -86,9 +86,10 @@ subroutine assertEqualScalarInt(CorrectValue, TestValue, string)
    call parser_comm_info(mype, numpe, iope)
 
    if (CorrectValue .eq. TestValue) then
-      if (mype .eq. 0) print *,"PASSED: ",string
+      if (mype .eq. 0) write (*,'("PASSED: ",a)') trim(string)
    else
-      if (mype .eq. 0) print *,"  FAILED: ",string, " CorrectValue ",CorrectValue," TestValue ",TestValue
+      if (mype .eq. 0) write (*,'("  FAILED: ",a, " CorrectValue ",a," TestValue ",a)') &
+                              trim(string), CorrectValue, TestValue
    endif
 end subroutine assertEqualScalarInt
 
@@ -108,9 +109,9 @@ subroutine assertEqualVectorInt(CorrectValue, TestValue, string)
    enddo
 
    if (.not. err) then
-      if (mype .eq. 0) print *,"PASSED: ",string
+      if (mype .eq. 0) write (*,'("PASSED: ",a)') trim(string)
    else
-      if (mype .eq. 0) print *,"  FAILED: ",string
+      if (mype .eq. 0) write (*,'("  FAILED: ",a)') trim(string)
    endif
 end subroutine assertEqualVectorInt
 
@@ -123,9 +124,9 @@ subroutine assertEqualScalarReal(CorrectValue, TestValue, string)
    call parser_comm_info(mype, numpe, iope)
 
    if (CorrectValue .eq. TestValue) then
-      if (mype .eq. 0) print *,"PASSED: ",string
+      if (mype .eq. 0) write (*,'("PASSED: ",a)') trim(string)
    else
-      if (mype .eq. 0) print *,"  FAILED: ",string
+      if (mype .eq. 0) write (*,'("  FAILED: ",a)') trim(string)
    endif
 end subroutine assertEqualScalarReal
 
@@ -138,9 +139,9 @@ subroutine assertEqualScalarRealTolerance(CorrectValue, TestValue, Tolerance, st
    call parser_comm_info(mype, numpe, iope)
 
    if (abs(CorrectValue - TestValue) .le. Tolerance) then
-      if (mype .eq. 0) print *,"PASSED: ",string
+      if (mype .eq. 0) write (*,'("PASSED: ",a)') trim(string)
    else
-      if (mype .eq. 0) print *,"  FAILED: ",string
+      if (mype .eq. 0) write (*,'("  FAILED: ",a)') trim(string)
    endif
 end subroutine assertEqualScalarRealTolerance
 
@@ -160,9 +161,9 @@ subroutine assertEqualVectorReal(CorrectValue, TestValue, string)
    enddo
 
    if (.not. err) then
-      if (mype .eq. 0) print *,"PASSED: ",string
+      if (mype .eq. 0) write (*,'("PASSED: ",a)') trim(string)
    else
-      if (mype .eq. 0) print *,"  FAILED: ",string
+      if (mype .eq. 0) write (*,'("  FAILED: ",a)') trim(string)
    endif
 end subroutine assertEqualVectorReal
 
@@ -175,9 +176,9 @@ subroutine assertEqualCharacter(CorrectValue, TestValue, string)
    call parser_comm_info(mype, numpe, iope)
 
    if (CorrectValue .eq. TestValue) then
-      if (mype .eq. 0) print *,"PASSED: ",string
+      if (mype .eq. 0) write (*,'("PASSED: ",a)') trim(string)
    else
-      if (mype .eq. 0) print *,"  FAILED: ",string
+      if (mype .eq. 0) write (*,'("  FAILED: ",a)') trim(string)
    endif
 end subroutine assertEqualCharacter
 
@@ -190,9 +191,9 @@ subroutine assertLessThanOrEqual(CorrectValue, TestValue, string)
    call parser_comm_info(mype, numpe, iope)
 
    if (CorrectValue .le. TestValue) then
-      if (mype .eq. 0) print *,"PASSED: ",string
+      if (mype .eq. 0) write (*,'("PASSED: ",a)') trim(string)
    else
-      if (mype .eq. 0) print *,"  FAILED: ",string
+      if (mype .eq. 0) write (*,'("  FAILED: ",a)') trim(string)
    endif
 end subroutine assertLessThanOrEqual
 

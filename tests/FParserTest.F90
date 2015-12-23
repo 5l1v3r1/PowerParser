@@ -1191,11 +1191,11 @@ program FParserTest
     max_casize = 0
     do i = 1, wtnum
        call FParser_whenthen_casize(i, wt_casize)
-       !print *, wt_casize
+       print *, wt_casize
        if (wt_casize .gt. max_casize) max_casize = wt_casize
     enddo
     call assertEqual(66, max_casize, trim(Package)//trim(Module)//" when...then, max_casize")
-    !print *, max_casize
+    print *, max_casize
 
     allocate(wt_ca(max_casize))
 
@@ -1313,26 +1313,24 @@ program FParserTest
     call QueryFParser('do_sum_cmd07', do_sum_cmd07, .true.)
     call assertEqual(7, do_sum_cmd07, trim(Package)//trim(Module)//" do loop negative step, do_sum_cmd07")
 
-#ifdef XXX
     ! ---------------------------------------------------------------------------
     ! ---------------------------------------------------------------------------
     ! File include tests.
     inc_cmd01 = ZERO
     call QueryFParser('inc_cmd01', inc_cmd01, .true.)
-    @assertEqual(3.0, inc_cmd01, trim(Package)//trim(Module)//" simple include, inc_cmd01")
+    call assertEqual(3.0_REAL64, inc_cmd01, trim(Package)//trim(Module)//" simple include, inc_cmd01")
 
     inc_cmd02 = ZERO
     call QueryFParser('inc_cmd02', inc_cmd02, .true.)
-    @assertEqual(5.0, inc_cmd02, trim(Package)//trim(Module)//" nested include, inc_cmd02")
+    call assertEqual(5.0_REAL64, inc_cmd02, trim(Package)//trim(Module)//" nested include, inc_cmd02")
 
     inc_cmd03 = ZERO
     call QueryFParser('inc_cmd03', inc_cmd03, .true.)
-    @assertEqual(7.0, inc_cmd03, trim(Package)//trim(Module)//" nested include, inc_cmd03")
+    call assertEqual(7.0_REAL64, inc_cmd03, trim(Package)//trim(Module)//" nested include, inc_cmd03")
 
     inc_cmd04 = ZERO
     call QueryFParser('inc_cmd04', inc_cmd04, .true.)
-    @assertEqual(-19.0, inc_cmd04, trim(Package)//trim(Module)//" nested include, inc_cmd04")
-#endif
+    call assertEqual(-19.0_REAL64, inc_cmd04, trim(Package)//trim(Module)//" nested include, inc_cmd04")
 
 #ifdef XXX
     ! ---------------------------------------------------------------------------
