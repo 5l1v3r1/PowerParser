@@ -1524,7 +1524,7 @@
 
       integer  :: valreturn
 
-      value_returned = 0
+!     value_returned = 0
       valreturn      = 0
 
       if(.not.FParser_initialized)then
@@ -1533,8 +1533,10 @@
       endif
 
       call process_error_final(valreturn)
-      if (present(value_returned)) value_returned = valreturn
+!     Can't assign value to value returned
+!     if (present(value_returned)) value_returned = valreturn
       call FParser_check_processed(good)
+      call parser_comm_destroy
       call parser_destroy
 
     end subroutine FParser_terminate

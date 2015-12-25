@@ -910,9 +910,6 @@ double Word::get_double()
 template< class T >
 T Word::get_val( T &dummyValue )
 {
-   // To suppress compiler warnings of unused parameters
-   assert(dummyValue == dummyValue);
-
    T retValue;
 
    // Mark this word as having been processed.
@@ -1001,9 +998,6 @@ float Word::convertFromString( const float &rtti, const string &s ) const
 // Convert string to double.
 double Word::convertFromString( const double &rtti, const string &s ) const 
 { 
-    // To suppress compiler warnings of unused parameters
-    assert(rtti == rtti);
-
     // Use a temporary string that might be modified.
     string sm = s;
 

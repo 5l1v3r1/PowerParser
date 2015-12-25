@@ -23,7 +23,7 @@ find_library(GENMALLOC_LIBRARY genmalloc DIRS
    ${CMAKE_BINARY_DIR}
    ${CMAKE_BINARY_DIR}/../genmalloc
    ../../genmalloc)
-#message("GENMALLOC directory is ${GENMALLOC_LIBRARY}")
+message("GENMALLOC directory is ${GENMALLOC_LIBRARY}")
 if (GENMALLOC-FOUND)
    set_target_properties(ParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_GENMALLOC)
 endif (GENMALLOC-FOUND)
@@ -127,5 +127,5 @@ add_custom_target(${test_prefix}check COMMAND ${CMAKE_CHECK_COMMAND}
                   DEPENDS ParserTest FParserTest pParserTest pFParserTest)
 
 ########### clean files ################
-SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "ParserTest")
+SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "ParserTest;FParserTest;pParserTest;pFParserTest;parser.out;test_output")
 

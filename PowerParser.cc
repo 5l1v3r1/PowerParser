@@ -163,7 +163,7 @@ int PowerParser::NumIncludeFiles()
 
 string PowerParser::GetIncludeFile(int i)
 {
-    if (0 <= i && i < IncludeFiles.size()) return IncludeFiles[i];
+    if (0 <= i && i < (int)IncludeFiles.size()) return IncludeFiles[i];
     return string("");
 }
 
@@ -1325,7 +1325,7 @@ void PowerParser::check_enddo(deque<int> &do_start, stringstream &serr, int &ier
 // ===========================================================================
 void PowerParser::check_processed(bool &good)
 {
-    int rtvl = 0;
+    //int rtvl = 0;
     int ierr = 0;
     stringstream serr;
 

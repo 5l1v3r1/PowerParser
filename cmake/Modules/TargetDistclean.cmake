@@ -28,6 +28,7 @@ IF (UNIX)
    install_manifest.txt
    ._*
    tests/._*
+   tests/*.dSYM
   )
   
   ADD_CUSTOM_COMMAND(

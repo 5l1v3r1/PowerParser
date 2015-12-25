@@ -271,6 +271,7 @@ program FParserTest
     call assertTrue(log2d(1,2), msg)
     call assertFalse(log2d(2,2), msg)
     call assertFalse(log2d(3,2), msg)
+    deallocate(log2d)
 
     ! A three dimensional logical array. We test FParser_size and allocate memory.
     msg = trim(Package)//trim(Module)//" log3d, 3d logical array"
@@ -299,6 +300,7 @@ program FParserTest
     call assertFalse(log3d(1,2,3), msg)
     call assertFalse(log3d(2,2,3), msg)
     call assertTrue(log3d(3,2,3), msg)
+    deallocate(log3d)
 
     ! A four dimensional logical array. We test FParser_size and allocate memory.
     msg = trim(Package)//trim(Module)//" log4d, 4d logical array"
@@ -319,6 +321,7 @@ program FParserTest
     call assertFalse(log4d(2,1,2,2), msg)
     call assertFalse(log4d(1,1,3,2), msg)
     call assertFalse(log4d(2,1,3,2), msg)
+    deallocate(log4d)
 
     ! ---------------------------------------------------------------------------
     ! ---------------------------------------------------------------------------
@@ -729,6 +732,7 @@ program FParserTest
     call assertEqual( 5, i2d(1,2), msg)
     call assertEqual(-7, i2d(2,2), msg)
     call assertEqual(-7, i2d(3,2), msg)
+    deallocate(i2d)
 
     ! A three dimensional integer array. We also test FParser_size
     msg = trim(Package)//trim(Module)//" i3d, 3d integer array, allocate mem"
@@ -757,6 +761,7 @@ program FParserTest
     call assertEqual(62145679 , i3d(1,2,3), msg)
     call assertEqual(-19284213, i3d(2,2,3), msg)
     call assertEqual(2        , i3d(3,2,3), msg)
+    deallocate(i3d)
 
     ! A four dimensional integer array. We also test FParser_size
     msg = trim(Package)//trim(Module)//" i4d, 4d integer array, allocate mem"
@@ -778,6 +783,7 @@ program FParserTest
     call assertEqual(555 , i4d(2,1,2,2), msg)
     call assertEqual(199 , i4d(1,1,3,2), msg)
     call assertEqual(942 , i4d(2,1,3,2), msg)
+    deallocate(i4d)
 
     ! ---------------------------------------------------------------------------
     ! ---------------------------------------------------------------------------
@@ -846,6 +852,7 @@ program FParserTest
     call assertEqual(6.0e19_REAL8  , a3d(1,2,3), msg)
     call assertEqual(-1.0e-23_REAL8, a3d(2,2,3), msg)
     call assertEqual(2.6_REAL8     , a3d(3,2,3), msg)
+    deallocate(a3d)
 
     ! A four dimensional real array. We also test FParser_size
     msg = trim(Package)//trim(Module)//" a4d, 4d real array, allocate mem"
@@ -862,6 +869,7 @@ program FParserTest
     call assertEqual(4.7_REAL8   , a4d(2,1,1,2), msg)
     call assertEqual(5.2_REAL8   , a4d(1,1,2,2), msg)
     call assertEqual(4.6e19_REAL8, a4d(2,1,2,2), msg)
+    deallocate(a4d)
 
     ! ---------------------------------------------------------------------------
     ! ---------------------------------------------------------------------------
@@ -1017,6 +1025,7 @@ program FParserTest
     call assertEqual("123456789012345678901234", oddstrs(5), msg)
     call assertEqual("5"                       , oddstrs(6), msg)
     call assertEqual("a,b"                     , oddstrs(7), msg)
+    deallocate(oddstrs)
 
     ! A two dimensional character array. We test FParser_size and allocate memory.
     msg = trim(Package)//trim(Module)//" char2d, 2d character array"
@@ -1031,6 +1040,7 @@ program FParserTest
     call assertEqual("be"   , char2d(1,2), msg)
     call assertEqual("with" , char2d(2,2), msg)
     call assertEqual("you"  , char2d(3,2), msg)
+    deallocate(char2d)
 
     ! A three dimensional character array. We test FParser_size and allocate memory.
     msg = trim(Package)//trim(Module)//" char3d, 3d character array"
@@ -1047,6 +1057,7 @@ program FParserTest
     call assertEqual("f", char3d(2,1,2), msg)
     call assertEqual("g", char3d(1,2,2), msg)
     call assertEqual("h", char3d(2,2,2), msg)
+    deallocate(char3d)
 
     ! A four dimensional character array. We test FParser_size and allocate memory.
     msg = trim(Package)//trim(Module)//" char4d, 4d character array"
@@ -1072,6 +1083,7 @@ program FParserTest
     call assertEqual("n", char4d(2,1,2,2), msg)
     call assertEqual("o", char4d(1,2,2,2), msg)
     call assertEqual("p", char4d(2,2,2,2), msg)
+    deallocate(char4d)
 
     ! ---------------------------------------------------------------------------
     ! ---------------------------------------------------------------------------
@@ -1092,6 +1104,7 @@ program FParserTest
     call FParser_rb_check(code_varnames, code_values, code_vv_active, &
          24, 2, rb_check, rb_ntriggered, rb_num, rb_triggered_indices)
     call assertTrue(rb_check, trim(Package)//trim(Module)//" restart_block, rb_check")
+    deallocate(rb_triggered_indices)
 
     ! ---------------------------------------------------------------------------
     ! ---------------------------------------------------------------------------
@@ -1442,10 +1455,7 @@ program FParserTest
    ! processed. We could also terminate the parser, i.e. free memory, clean up.
    ! ******************************************************************************
    ! ******************************************************************************
-   !call FParser_terminate(good)
-
-   call parser_comm_destroy
-   call parser_destroy
+   call FParser_terminate(good)
 
    ! ******************************************************************************
    ! ******************************************************************************
@@ -1454,7 +1464,7 @@ program FParserTest
    ! ******************************************************************************
 
    ! Close the output file.
-   close(12)
+   !close(12)
 
 end program FParserTest
 
