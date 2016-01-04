@@ -1533,10 +1533,8 @@
       endif
 
       call process_error_final(valreturn)
-!     Can't assign value to value returned
-!     if (present(value_returned)) value_returned = valreturn
+      if (present(value_returned)) value_returned = valreturn
       call FParser_check_processed(good)
-      call parser_comm_destroy
       call parser_destroy
 
     end subroutine FParser_terminate

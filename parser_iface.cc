@@ -143,11 +143,8 @@ void FC_FUNC(parser_destroy,PARSER_DESTROY)()
        //cout << "Returning output to screen" << endl;
     }
 
-    // Why does the code fail to build when this is uncommented??
-    //delete(parse);
-
-    // Do not delete comm since someday it might be used during the
-    // entire calculation.
+    // Remove parse object and its memory
+    delete(parse);
 }
 
 // Destroy the parser comm.

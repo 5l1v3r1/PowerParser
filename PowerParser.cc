@@ -1713,6 +1713,7 @@ void PowerParser::dictionary_add(char *name, double value, bool pred, char *vdes
 {
    Variable *Var_entry = new Variable(name, to_string(value), pred, vdesc);
    vmap.insert(pair<string, Variable>(Var_entry->get_varname(), *Var_entry));
+   delete(Var_entry);
 }
 
 void PowerParser::dictionary_env_add(char *name, bool pred)
