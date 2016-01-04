@@ -89,6 +89,7 @@
     public FParser_check_processed    ! Check processed flags.
     public FParser_disable_check      ! Disable check processed.
     public FParser_terminate          ! Last FParser call, check processed flags, clean.
+    public FParser_parser_errors      ! Check for parser errors
     public FParser_cmd_in_input       ! Check for command in the user input.
     public FParser_cmd_set_processed  ! Set the command as being processed.
     public FParser_echo_user_input    ! Echo user input to a file.
@@ -1362,7 +1363,7 @@
  
  
       ! 5d arrays.
-      call get_size4(cmd_array, size1, size2, size3, size4, size5, len(cmdname))
+      call get_size5(cmd_array, size1, size2, size3, size4, size5, len(cmdname))
  
     end subroutine FParser_size_5
  
@@ -1511,8 +1512,34 @@
  
  
     ! ==========================================================================
-    ! Check that every command/word has been processed.
-    ! We are done with the parser and could clean up here.
+    ! Check for parser processing error
+    ! ==========================================================================
+    subroutine FParser_parser_errors(good, value_returned)
+
+      ! The argument value_returned will be necessary to print the errors in the
+      ! data base after parser has failed:
+
+      logical, intent(inout)           :: good
+      integer, intent(out), optional   :: value_returned
+
+      integer  :: valreturn
+
+      value_returned = 0
+      valreturn      = 0
+
+      if(.not.FParser_initialized)then
+         good = .false.
+         return
+      endif
+
+      call process_error_final(valreturn)
+      if (present(value_returned)) value_returned = valreturn
+      call FParser_check_processed(good)
+
+    end subroutine FParser_parser_errors
+
+    ! ==========================================================================
+    ! We are done with the parser and will clean up here
     ! ==========================================================================
     subroutine FParser_terminate(good, value_returned)
 
@@ -1524,7 +1551,6 @@
 
       integer  :: valreturn
 
-!     value_returned = 0
       valreturn      = 0
 
       if(.not.FParser_initialized)then
@@ -1538,7 +1564,6 @@
       call parser_destroy
 
     end subroutine FParser_terminate
-
     
     ! ==========================================================================
     ! Disable the FParser check operation

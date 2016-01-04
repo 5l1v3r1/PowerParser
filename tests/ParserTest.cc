@@ -3,7 +3,7 @@
 #include "genmalloc/genmalloc.h"
 #endif
 #include "PowerParser.hh"
-#include "assertStuff.hh"
+#include "AssertStuff.hh"
 
 using namespace PP;
 

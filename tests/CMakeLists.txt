@@ -8,14 +8,15 @@ set(CXX_SRCS ParserTest.cc AssertStuff.cc)
 
 set(F90_SRCS FParserTest.F90 AssertStuff.F90)
 
+set(ParserTest_SRCS ${CXX_SRCS} ${H_SRCS})
+set(FParserTest_SRCS ${F90_SRCS})
+
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/..)
 
 #link_directories(${CMAKE_BINARY_DIR})
 
 ########### ParserTest target ###############
-set(ParserTest_SRCS ${CXX_SRCS} ${H_SRCS})
-
 add_executable(ParserTest EXCLUDE_FROM_ALL ${ParserTest_SRCS})
 
 find_library(GENMALLOC_LIBRARY genmalloc DIRS
@@ -36,31 +37,32 @@ if (GENMALLOC-FOUND)
 endif (GENMALLOC-FOUND)
 
 ########### pParserTest target ###############
-set(pParserTest_SRCS ${CXX_SRCS} ${H_SRCS})
+if (MPI_FOUND)
+   set(pParserTest_SRCS ${CXX_SRCS} ${H_SRCS})
 
-add_executable(pParserTest EXCLUDE_FROM_ALL ${ParserTest_SRCS})
+   add_executable(pParserTest EXCLUDE_FROM_ALL ${ParserTest_SRCS})
 
-find_library(GENMALLOC_LIBRARY genmalloc DIRS
-   ${CMAKE_BINARY_DIR}/genmalloc
-   ${CMAKE_BINARY_DIR}
-   ${CMAKE_BINARY_DIR}/../genmalloc
-   ../../genmalloc)
-#message("GENMALLOC directory is ${GENMALLOC_LIBRARY}")
-if (GENMALLOC-FOUND)
-   set_target_properties(pParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_GENMALLOC)
-endif (GENMALLOC-FOUND)
+   find_library(GENMALLOC_LIBRARY genmalloc DIRS
+      ${CMAKE_BINARY_DIR}/genmalloc
+      ${CMAKE_BINARY_DIR}
+      ${CMAKE_BINARY_DIR}/../genmalloc
+      ../../genmalloc)
+   #message("GENMALLOC directory is ${GENMALLOC_LIBRARY}")
+   if (GENMALLOC-FOUND)
+      set_target_properties(pParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_GENMALLOC)
+   endif (GENMALLOC-FOUND)
 
-set_target_properties(pParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_MPI)
-set_target_properties(pParserTest PROPERTIES EXCLUDE_FROM_ALL TRUE)
-set_target_properties(pParserTest PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD TRUE)
-set_target_properties(pParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_MPI)
-target_link_libraries(pParserTest pPowerParser ${MPI_LIBRARIES})
-if (GENMALLOC-FOUND)
-   target_link_libraries(ParserTest pPowerParser ${GENMALLOC_LIBRARY})
-endif (GENMALLOC-FOUND)
+   set_target_properties(pParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_MPI)
+   set_target_properties(pParserTest PROPERTIES EXCLUDE_FROM_ALL TRUE)
+   set_target_properties(pParserTest PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+   set_target_properties(pParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_MPI)
+   target_link_libraries(pParserTest pPowerParser ${MPI_LIBRARIES})
+   if (GENMALLOC-FOUND)
+      target_link_libraries(ParserTest pPowerParser ${GENMALLOC_LIBRARY})
+   endif (GENMALLOC-FOUND)
+endif (MPI_FOUND)
 
 ########### FParserTest target ###############
-set(FParserTest_SRCS ${F90_SRCS})
 
 add_executable(FParserTest EXCLUDE_FROM_ALL ${FParserTest_SRCS})
 
@@ -83,28 +85,29 @@ if (GENMALLOC-FOUND)
 endif (GENMALLOC-FOUND)
 
 ########### pFParserTest target ###############
-set(FParserTest_SRCS ${F90_SRCS})
+if (MPI_FOUND)
+   add_executable(pFParserTest EXCLUDE_FROM_ALL ${FParserTest_SRCS})
 
-add_executable(pFParserTest EXCLUDE_FROM_ALL ${FParserTest_SRCS})
+   find_library(GENMALLOC_LIBRARY genmalloc DIRS
+      ${CMAKE_BINARY_DIR}/genmalloc
+      ${CMAKE_BINARY_DIR}
+      ${CMAKE_BINARY_DIR}/../genmalloc
+      ../../genmalloc)
+   #message("GENMALLOC directory is ${GENMALLOC_LIBRARY}")
+   if (GENMALLOC-FOUND)
+      set_target_properties(pFParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_GENMALLOC)
+   endif (GENMALLOC-FOUND)
 
-find_library(GENMALLOC_LIBRARY genmalloc DIRS
-   ${CMAKE_BINARY_DIR}/genmalloc
-   ${CMAKE_BINARY_DIR}
-   ${CMAKE_BINARY_DIR}/../genmalloc
-   ../../genmalloc)
-#message("GENMALLOC directory is ${GENMALLOC_LIBRARY}")
-if (GENMALLOC-FOUND)
-   set_target_properties(pFParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_GENMALLOC)
-endif (GENMALLOC-FOUND)
-
-set_target_properties(pFParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_MPI)
-set_target_properties(pFParserTest PROPERTIES EXCLUDE_FROM_ALL TRUE)
-set_target_properties(pFParserTest PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD TRUE)
-set_target_properties(pFParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_MPI)
-target_link_libraries(pFParserTest pPowerParser ${MPI_LIBRARIES})
-if (GENMALLOC-FOUND)
-   target_link_libraries(pFParserTest PowerParser ${GENMALLOC_LIBRARY})
-endif (GENMALLOC-FOUND)
+   set_target_properties(pFParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_MPI)
+   set_target_properties(pFParserTest PROPERTIES EXCLUDE_FROM_ALL TRUE)
+   set_target_properties(pFParserTest PROPERTIES EXCLUDE_FROM_DEFAULT_BUILD TRUE)
+   set_target_properties(pFParserTest PROPERTIES COMPILE_DEFINITIONS HAVE_MPI)
+   set_target_properties(pFParserTest PROPERTIES LINKER_LANGUAGE Fortran)
+   target_link_libraries(pFParserTest pPowerParser ${MPI_LIBRARIES})
+   if (GENMALLOC-FOUND)
+      target_link_libraries(pFParserTest PowerParser ${GENMALLOC_LIBRARY})
+   endif (GENMALLOC-FOUND)
+endif (MPI_FOUND)
 
 ########### install files ###############
 
@@ -112,8 +115,10 @@ endif (GENMALLOC-FOUND)
 
 add_test(ParserTest   ParserTest)
 add_test(FParserTest  FParserTest)
-add_test(pParserTest  mpirun -n 2 pParserTest)
-add_test(pFParserTest mpirun -n 2 pFParserTest)
+if (MPI_FOUND)
+   add_test(pParserTest  mpirun -n 2 pParserTest)
+   add_test(pFParserTest mpirun -n 2 pFParserTest)
+endif (MPI_FOUND)
 
 if (${CMAKE_PROJECT_NAME} MATCHES ${PROJECT_NAME})
   set(test_prefix "")
