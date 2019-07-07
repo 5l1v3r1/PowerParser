@@ -8,7 +8,7 @@ set (POWERPARSER_VERSION "${POWERPARSER_VERSION_MAJOR}.${POWERPARSER_VERSION_MIN
 
 enable_language (Fortran)
 
-#  FFLAGS depend on the compiler
+# FFLAGS depend on the compiler
 get_filename_component (Fortran_COMPILER_NAME ${CMAKE_Fortran_COMPILER} NAME)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
@@ -67,7 +67,8 @@ endif()
 
 if (MIC_NATIVE)
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-intel -mmic")
-   link_directories("/projects/opt/intel/compilers/parallel_studio_xe_2013/composer_xe_2013_sp1.2.144/compiler/lib/mic")
+
+   link_directories("/projects/opt/intel/compilers/composer_xe_2015.3.187/compiler/lib/mic")
 endif (MIC_NATIVE)
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -g -O0 -Wextra")
@@ -111,6 +112,8 @@ set(PowerParser_LIB_SRCS ${CXX_SRCS} ${H_SRCS} ${F90_SRCS})
 add_library(PowerParser STATIC ${PowerParser_LIB_SRCS})
 
 set_target_properties(PowerParser PROPERTIES VERSION ${POWERPARSER_VERSION} SOVERSION ${POWERPARSER_VERSION_MAJOR})
+set_target_properties(PowerParser PROPERTIES Fortran_MODULE_DIRECTORY ./CMakeFiles/PowerParser.dir)
+
 install(TARGETS PowerParser DESTINATION lib)
 
 ########### pPowerParser target ###############
@@ -121,6 +124,7 @@ if (MPI_FOUND)
 
    set_target_properties(pPowerParser PROPERTIES VERSION ${POWERPARSER_VERSION} SOVERSION ${POWERPARSER_VERSION_MAJOR})
    set_target_properties(pPowerParser PROPERTIES COMPILE_DEFINITIONS HAVE_MPI)
+   set_target_properties(pPowerParser PROPERTIES Fortran_MODULE_DIRECTORY ./CMakeFiles/pPowerParser.dir)
    target_link_libraries(pPowerParser ${MPI_LIBRARIES})
 
    install(TARGETS pPowerParser DESTINATION lib)
@@ -167,5 +171,5 @@ set_target_properties(${doc_prefix}singlehtmldoc PROPERTIES EXCLUDE_FROM_ALL TRU
 
 ########### clean files ################
 SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES
-   "FParser_module.mod;install_manifest.txt;docs/_build;docs/htmldoc.out;docs/pdfdoc.out;docs/singlehtmldoc.out")
+   "fparser_module.mod;install_manifest.txt;docs/_build;docs/htmldoc.out;docs/pdfdoc.out;docs/singlehtmldoc.out")
 
