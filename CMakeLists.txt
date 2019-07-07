@@ -99,7 +99,7 @@ set(CXX_SRCS Cmd.cc   Function.cc    Parser_utils.cc  Variable.cc      Word.cc
    set(F90_SRCS FParser.F90)
 #endif(DEFINED ENV{FC})
 
-set(DOC_SRCS docs/index.rst docs/About.rst docs/GettingStarted.rst
+set(DOC_SRCS mocs/index.rst docs/About.rst docs/GettingStarted.rst
              docs/DevelopersGuide.rst docs/UsersGuide.rst)
 
 set(PDFDOC_SRCS docs/indexpdf.rst docs/About.rst docs/GettingStarted.rst

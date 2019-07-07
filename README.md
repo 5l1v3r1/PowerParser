@@ -8,7 +8,7 @@ capabilities such as mathematical expression evaluation and loops
 Authors: Bob Robey       XCP-2   brobey@lanl.gov
          Chuck Wingate           caw@lanl.gov
 
-Copyright (c) 2015, Los Alamos National Security, LLC.
+Copyright (c) 2015, Triad National Security, LLC.
 All rights Reserved.
 
 See License.txt and LICENSE files for licensing information
